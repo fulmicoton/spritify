@@ -1,0 +1,23 @@
+{
+   "name": "spritify",
+   "version": "1.0.0",
+   "main": "build/Release/spritify.node",
+   "description": "A CSS sprite compiler.",
+   "keywords": [
+       "css",
+       "sprite"
+   ],
+   "author": {
+       "name": "Paul Masurel",
+       "email": "paul.masurel@gmail.com",
+       "twitter": "poulejapon"
+   }, 
+   "license": "MIT",
+   "directories": {
+       "tests": "tests"
+   },
+   "engines": {
+       "node": ">=0.2.0"
+   }
+}
+
