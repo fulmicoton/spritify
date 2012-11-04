@@ -17,7 +17,9 @@ using namespace v8;
 SpriteJob::SpriteJob(const vector<string>& inputs_, const string& output_, const Persistent<Function>& callback_)
 :inputs(inputs_)
 ,output(output_)
-,callback(callback_) {};
+,callback(callback_) {
+    request.data = this;
+};
 
 
 

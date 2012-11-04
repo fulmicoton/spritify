@@ -11,6 +11,7 @@ struct SpriteJob {
         const std::vector<std::string>& inputs_
        ,const std::string& output_
        ,const v8::Persistent<v8::Function>& callback_);
+    uv_work_t request;
     std::vector<std::string> inputs;
     std::string output;
     v8::Persistent<v8::Function> callback;
