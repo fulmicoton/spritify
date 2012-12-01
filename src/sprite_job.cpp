@@ -2,13 +2,14 @@
 
 #include <vector>
 #include <fstream>
+
 #include <node.h>
 #include <node_buffer.h>
 
 #include "CImg.h"
 #include "imagebox.hpp"
 #include "layout.hpp"
-
+#include <algorithm>
 
 using namespace cimg_library;
 using namespace std;
