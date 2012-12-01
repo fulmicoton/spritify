@@ -19,7 +19,7 @@
           }],
           ["use_libpng==''", {
             "defines": ["cimg_use_png" ],
-            "libraries": ["<!(pkg-config --libs libpng"]
+            "libraries": ["<!(pkg-config --libs libpng)"]
           }]
         ],
     }

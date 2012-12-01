@@ -8,8 +8,9 @@ using namespace node;
 using namespace std;
 
 static Handle<Value> build_sprite_async (const Arguments&);
-static void build_sprite(eio_req *);
-static int build_sprite_after(eio_req *);
+static void build_sprite(uv_work_t *);
+static void build_sprite_after(uv_work_t *);
+
 extern "C" void init (Handle<Object>);
 
 string toStdString(String& s) {
@@ -40,33 +41,29 @@ static Handle<Value> build_sprite_async(const Arguments& args) {
         string input = toStdString(**val);
         inputs.push_back(input);
     }
-    string output = toStdString(**output_arg);
     Persistent<Function> callback_persistent = Persistent<Function>::New(callback);
+    string output = toStdString(**output_arg);
     SpriteJob* sprite_job = new SpriteJob(inputs, output, callback_persistent);
-    eio_custom(build_sprite, EIO_PRI_DEFAULT, build_sprite_after, sprite_job);
-    ev_ref(EV_DEFAULT_UC);
+
+    uv_queue_work(uv_default_loop(), &(sprite_job->request), build_sprite, build_sprite_after);
+
     return Undefined();
 }
 
-static void build_sprite(eio_req *req) {
-    const SpriteJob* sprite_job = (struct SpriteJob*)req->data;
-    sprite_job->run();
+static void build_sprite(uv_work_t * req) {
+    static_cast<const SpriteJob*>(req->data)->run();
 }
 
-static int build_sprite_after(eio_req* req) {
+static void build_sprite_after(uv_work_t* req) {
     HandleScope scope;
-    ev_unref(EV_DEFAULT_UC);
-    struct SpriteJob* sprite_job  = (struct SpriteJob*)req->data;
-    Local<Value> argv[0];
-
-    TryCatch try_catch;
-    sprite_job->callback->Call(Context::GetCurrent()->Global(), 0, argv);
-    if (try_catch.HasCaught()) {
-        FatalException(try_catch);
-    }
+    SpriteJob* sprite_job  = static_cast<SpriteJob*>(req->data);   
+    Local<Value> argv[1];
+    Local<Object> sprite_info = Object::New();
+    sprite_info->Set(String::NewSymbol("msg"), String::New("Hello World"));
+    argv[0] = sprite_info;
+    sprite_job->callback->Call(Context::GetCurrent()->Global(), 1, argv);
     sprite_job->callback.Dispose();
     delete sprite_job;
-    return 0;
 }
 
 extern "C" void init (Handle<Object> target) {
