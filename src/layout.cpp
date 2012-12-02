@@ -78,8 +78,7 @@ Layout Layout::optimize(const vector<Box>& boxes) {
     while (W>=max_w) {
         H+=1;
         W = (MIN_COST-1) / H;
-        for (; W>=max_w ; W--) 
-        {
+        for (; W>=max_w ; W--)  {
             Layout cur_layout(W,H);
             if (cur_layout.put_all(boxes)) {
                 best_layout.swap(cur_layout);

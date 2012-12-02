@@ -5,6 +5,9 @@
 #include <node_buffer.h>
 #include <vector>
 #include <string>
+#include <map>
+
+#include "box.hpp"
 
 struct SpriteJob {
     SpriteJob(
@@ -15,8 +18,8 @@ struct SpriteJob {
     std::vector<std::string> inputs;
     std::string output;
     v8::Persistent<v8::Function> callback;
-
-    void run() const;
+    std::map<std::string, Box> imageToBox;
+    void run();
 };
 
 void spritify(const SpriteJob& sprite_arguments);

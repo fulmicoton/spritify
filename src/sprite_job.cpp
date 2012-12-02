@@ -1,15 +1,14 @@
 #include "sprite_job.hpp"
 
 #include <vector>
-#include <fstream>
-
+#include <iostream>
+#include <algorithm>
 #include <node.h>
 #include <node_buffer.h>
 
 #include "CImg.h"
 #include "imagebox.hpp"
 #include "layout.hpp"
-#include <algorithm>
 
 using namespace cimg_library;
 using namespace std;
@@ -35,16 +34,18 @@ void write_css_class(const string& sprite_image, const string& className, const 
     output << "}" << endl;
 }
 
+/*
 void write_css(const string& sprite_image, const vector<ImageBox>& images, const vector<Box>& positions, ostream& output) {
     vector<ImageBox>::const_iterator image_it = images.begin();
     vector<Box>::const_iterator pos_it = positions.begin();
     for (; image_it!=images.end() && pos_it!=positions.end(); image_it++, pos_it++) {
         write_css_class(sprite_image, image_it->name(), *pos_it, output);
     }
-}
+}*/
 
 
-void SpriteJob::run() const {
+void SpriteJob::run() {
+
     vector<ImageBox> images;
     vector<string>::const_iterator input_it;
     for (input_it = inputs.begin(); input_it != inputs.end(); ++input_it) {
@@ -73,9 +74,12 @@ void SpriteJob::run() const {
     }
 
     // create css
-    string css_filepath = output + ".css";
-    ofstream f(css_filepath.c_str());
-    write_css(output, images, positions, f);
+    image_it = images.begin();
+    vector<Box>::const_iterator pos_it = positions.begin();
+    for (; image_it!=images.end() && pos_it!=positions.end(); image_it++, pos_it++) {
+        string image_name = image_it->name(); 
+        imageToBox[image_name] = *pos_it;
+    }
 
     output_img.save(output.c_str());
 }

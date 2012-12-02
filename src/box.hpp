@@ -2,6 +2,7 @@
 #define BOX_HPP
 
 struct Box {
+	Box();
     Box(int x, int y, int w, int h);
     Box(int w, int h);
     int x;
