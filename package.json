@@ -1,7 +1,7 @@
 {
    "name": "spritify",
    "version": "1.0.0",
-   "main": "build/Release/spritify.node",
+   "main": "./spritify.js",
    "description": "A CSS sprite compiler.",
    "keywords": [
        "css",

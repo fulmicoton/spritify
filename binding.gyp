@@ -4,7 +4,7 @@
   },
   "targets": [
     {
-      "target_name": "spritify",
+      "target_name": "spritify_cpp",
       "sources": [
           "src/spritify.cpp",
           "src/sprite_job.cpp",

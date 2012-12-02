@@ -103,5 +103,5 @@ static void build_sprite_after(uv_work_t* req) {
 
 extern "C" void init (Handle<Object> target) {
     HandleScope scope;
-    NODE_SET_METHOD(target, "spritify", build_sprite_async);
+    NODE_SET_METHOD(target, "build_sprite", build_sprite_async);
 }
