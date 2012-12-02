@@ -34,16 +34,6 @@ void write_css_class(const string& sprite_image, const string& className, const 
     output << "}" << endl;
 }
 
-/*
-void write_css(const string& sprite_image, const vector<ImageBox>& images, const vector<Box>& positions, ostream& output) {
-    vector<ImageBox>::const_iterator image_it = images.begin();
-    vector<Box>::const_iterator pos_it = positions.begin();
-    for (; image_it!=images.end() && pos_it!=positions.end(); image_it++, pos_it++) {
-        write_css_class(sprite_image, image_it->name(), *pos_it, output);
-    }
-}*/
-
-
 void SpriteJob::run() {
 
     vector<ImageBox> images;
@@ -77,7 +67,7 @@ void SpriteJob::run() {
     image_it = images.begin();
     vector<Box>::const_iterator pos_it = positions.begin();
     for (; image_it!=images.end() && pos_it!=positions.end(); image_it++, pos_it++) {
-        string image_name = image_it->name(); 
+        string image_name = image_it->filepath(); 
         imageToBox[image_name] = *pos_it;
     }
 

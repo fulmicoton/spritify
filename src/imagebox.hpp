@@ -18,13 +18,13 @@ public:
     ~ImageBox();
     Box box() const;
     const Image& image() const;
-    const std::string& name() const;
+    const std::string& filepath() const;
 
 private:
     ImageBox();
-    ImageBox(const Image* img, const std::string& name);
+    ImageBox(const Image* img, const std::string& filepath);
     
-    std::string _name;
+    std::string _filepath;
     const Image* _img;
     int* _ref_count;
 
